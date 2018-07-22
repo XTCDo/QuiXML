@@ -19,7 +19,6 @@ def getText(str):
 
 def getAttributes(str):
     if ATTR_SEPARATOR not in str:
-        print('fuck you')
         return ''
     attributes = str.split(ATTR_SEPARATOR)[1:]
     attributesOut = []
@@ -37,7 +36,6 @@ def getAttributes(str):
             if index != 0:
                 leadingSpaces = ' '*leadingSpacesCount
             if index != len(attributes) - 1:
-                print("break")
                 brk = "\n"
         attributesOut.append('%s%s="%s"%s' % (leadingSpaces, attrName, attrVal, brk))
         index = index + 1
@@ -68,7 +66,6 @@ def flattenEmptyTags(tags):
                 tags[i] = tags[i][:-1] + "/>"
                 tags.pop(i+1)
             i = i + 1
-    print(tags)
     return tags
 
 def createXML(filename):

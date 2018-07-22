@@ -36,6 +36,7 @@ def getTags(str):
     
     return '<%s%s>' % (str, attributes), '</%s>' % str
 
+
 def flattenEmptyTags(tags):
     print('--------') 
     i = 0
@@ -61,6 +62,10 @@ def createXML(filename):
         cnt = 0
         while line:
             currentSpaceCount = len(line) - len(line.lstrip(' '))
+            line = line.strip('\n')
+            while line.endswith(";n"):
+                line = line[:-2] + f.readline().strip('\n')
+                
 
             if getLooseText(line) != '':
                 out.insert(cnt - currentSpaceCount, ' '*currentSpaceCount + getLooseText(line))

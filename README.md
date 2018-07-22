@@ -6,7 +6,7 @@ Run the `quixml.py` file inside any folder with `.txt` files. QuiXML will create
 
 QuiXML will overwrite any created `.xml` file when it detects a change in it's original `.txt` file.
 
-**Make sure that you use a completely separate folder for QuiXML usage, you might accidentally overwrite other important `.xml` files!`**
+**Make sure that you use a completely separate folder for QuiXML usage, you might accidentally overwrite other important `.xml` files!**
 ## Tags
 ### Regular tags
 Type the name of your tags and indent them with spaces if they should be nested inside another tag

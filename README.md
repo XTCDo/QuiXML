@@ -75,6 +75,28 @@ Output:
 </second-tag>
 ```
 
+### Breaking lines
+Sometimes you have a tag with a lot of attributes. If your editor does not wrap text, that can be annoying. You can insert `;n` at the end of a line to tell the program that the line below is part of the current line.
+
+**Example**
+
+Input:
+```
+first-tag ;;first-attribute first value ;n
+;;second-attribute second value
+second-tag
+ nested-tag ;;first-attribute first value ;n
+ ;;second-attribute second value
+```
+Output:
+
+```xml
+<first-tag first-attribute="first value" second-attribute="second value"/>
+<second-tag>
+ <nested-tag first-attribute="first value" second-attribute="second value"/>
+</second-tag>
+```
+
 ### Adding text
 Sometimes you have text that doesn't go inside any tags like `Input: <input type="text" name="inputval"/>`
 

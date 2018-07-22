@@ -9,7 +9,7 @@ QuiXML will overwrite any created `.xml` file when it detects a change in it's o
 **Make sure that you use a completely separate folder for QuiXML usage, you might accidentally overwrite other important `.xml` files!**
 ## Tags
 ### Regular tags
-Type the name of your tags and indent them with spaces if they should be nested inside another tag
+Type the name of your tags and indent them with spaces if they should be nested inside another tag.
 
 **Example**
 
@@ -29,7 +29,7 @@ Output:
 ```
 
 ### Tags with content
-Most tags, like `<h1>Title</h1>` in html for example usually have text inbetween the opening and closing tag
+Most tags, like `<h1>Title</h1>` in html for example usually have text inbetween the opening and closing tag.
 
 **Example**
 
@@ -53,7 +53,7 @@ Output:
 ```
 
 ### Tags with attributes
-Sometimes tags have attributes like `<h1 class="title">Title page</h1>`
+Sometimes tags have attributes like `<h1 class="title">Title page</h1>`. To add an attribute type `;;` followed by the attribute name, a space and then the value of the attribute. Multiple attributes can be added.
 
 **Example**
 
@@ -98,7 +98,7 @@ Output:
 ```
 
 ### Adding text
-Sometimes you have text that doesn't go inside any tags like `Input: <input type="text" name="inputval"/>`
+Sometimes you have text that doesn't go inside any tags like `Input: <input type="text" name="inputval"/>`. You can add text by typing `;t` followed by a space and then your text on a newline.
 
 **Example**
 

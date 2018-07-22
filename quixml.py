@@ -3,7 +3,7 @@ import os
 import time
 import datetime
 
-ATTR_SEPARATOR = "''"
+ATTR_SEPARATOR = ";;"
 
 def getText(str):
     str = ' '.join(str.split(ATTR_SEPARATOR)[0].split()[1:])

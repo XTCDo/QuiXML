@@ -4,10 +4,12 @@ import time
 import datetime
 
 ATTR_SEPARATOR = ";;"
+TXT_TOKEN = ";t "
+BREAK_TOKEN = " ;n"
 
 def getLooseText(str):
-    if str.lstrip().startswith(";t "):
-        return str.split(";t ")[1].strip("\n")
+    if str.lstrip().startswith(TXT_TOKEN):
+        return str.split(TXT_TOKEN)[1].strip("\n")
     else:
         return ''
 
@@ -20,11 +22,24 @@ def getAttributes(str):
         return ''
     attributes = str.split(ATTR_SEPARATOR)[1:]
     attributesOut = []
+    leadingSpaces = ''
+    tagNameLength = len(str.lstrip().split(' ')[0])
+    leadingSpacesCount = (len(str) - len(str.lstrip(' '))) + tagNameLength + 1
+    index = 0
     for attr in attributes:
+        brk = ''
         attr = attr.split()
         attrName = attr[0]
         attrVal = ' '.join(attr[1:]).strip()
-        attributesOut.append('%s="%s"' % (attrName, attrVal))
+        if len(attributes) > 3 or (len(str) >= 50 and len(attributes) > 2):
+            if index != 0:
+                leadingSpaces = ' '*leadingSpacesCount
+            if index != len(attributes) - 1:
+                brk = "\n"
+        attributesOut.append('%s%s="%s"%s' % (leadingSpaces, attrName, attrVal, brk))
+
+        index = index + 1
+            
     return ' '.join(attributesOut)
 
 def getTags(str):
@@ -62,7 +77,7 @@ def createXML(filename):
         while line:
             currentSpaceCount = len(line) - len(line.lstrip(' '))
             line = line.strip('\n')
-            while line.endswith(";n"):
+            while line.endswith(BREAK_TOKEN):
                 line = line[:-2] + f.readline().strip('\n')
                 
 

@@ -22,16 +22,14 @@ second-tag
 Output:
 
 ```xml
-<first-tag>
-</first-tag>
+<first-tag/>
 <second-tag>
- <nested-tag>
- </nested-tag>
+ <nested-tag/>
 </second-tag>
 ```
 
 ### Tags with content
-Most tags, like `<h1>Title</h1>` in html for example have text inbetween the opening and closing tag
+Most tags, like `<h1>Title</h1>` in html for example usually have text inbetween the opening and closing tag
 
 **Example**
 
@@ -68,14 +66,37 @@ second-tag Text inside the tag ;;first-attribute first value ;;second-attribute 
 Output:
 
 ```xml
-<first-tag first-attribute="first value" second-attribue="second value">
-</first-tag>
+<first-tag first-attribute="first value" second-attribue="second value"/>
 <second-tag first-attribute="first value" second-attribute="second value">
  Text inside the tag
  <nested-tag some-attribute="some value">
   Text inside nested tag
  </nested-tag>
 </second-tag>
+```
+
+### Adding text
+Sometimes you have text that doesn't go inside any tags like `Input: <input type="text" name="inputval"/>`
+
+**Example**
+
+Input:
+```
+first-tag
+ ;t some text
+ nested-tag text
+ ;t more text
+```
+Output:
+
+```xml
+<first-tag>
+ some text
+ <nested-tag>
+  text
+ </nested-tag>
+ more text
+</first-tag>
 ```
 
 
@@ -102,24 +123,4 @@ Output:
 </first-tag>
 ```
 
-### Adding text
-Sometimes you have text that doesn't go inside any tags like `Input: <input type="text" name="inputval"/>`
 
-**Example**
-
-Input:
-```
-first-tag
- ;t some text
- nested-tag text
-```
-Output:
-
-```xml
-<first-tag>
- some text
- <nested-tag>
-  text
- </nested-tag>
-</first-tag>
-```

@@ -3,12 +3,32 @@ import os
 import time
 import datetime
 
+ATTR_SEPARATOR = "''"
+
 def getText(str):
-    return ' '.join(str.split()[1:])
+    str = ' '.join(str.split(ATTR_SEPARATOR)[0].split()[1:])
+    return str
+
+def getAttributes(str):
+    if ATTR_SEPARATOR not in str:
+        return ''
+    attributes = str.split(ATTR_SEPARATOR)[1:]
+    attributesOut = []
+    for attr in attributes:
+        attr = attr.split()
+        attrName = attr[0]
+        attrVal = ' '.join(attr[1:]).strip()
+        attributesOut.append('%s="%s"' % (attrName, attrVal))
+    return ' '.join(attributesOut)
 
 def getTags(str):
+    attributes = getAttributes(str)
+    if attributes != '':
+        attributes = ' ' + attributes
+        
     str = str.split()[0]
-    return '<%s>' % str, '</%s>' % str
+    
+    return '<%s%s>' % (str, attributes), '</%s>' % str
 
 def createXML(filename):
     out = []

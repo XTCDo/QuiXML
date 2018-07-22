@@ -77,3 +77,49 @@ Output:
  </nested-tag>
 </second-tag>
 ```
+
+
+## Hopefully upcoming features
+### Empty tags
+Sometimes you have tags that don't need any content inside them, for example `<br/>`.
+
+**Example**
+
+Input:
+```
+first-tag
+ empty-tag
+ non-empty-tag content
+```
+Output:
+
+```xml
+<first-tag>
+ <empty-tag/>
+ <non-empty-tag>
+  content
+ </non-empty-tag>
+</first-tag>
+```
+
+### Adding text
+Sometimes you have text that doesn't go inside any tags like `Input: <input type="text" name="inputval"/>`
+
+**Example**
+
+Input:
+```
+first-tag
+ ;t some text
+ nested-tag text
+```
+Output:
+
+```xml
+<first-tag>
+ some text
+ <nested-tag>
+  text
+ </nested-tag>
+</first-tag>
+```

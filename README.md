@@ -120,3 +120,30 @@ Output:
  more text
 </first-tag>
 ```
+
+### Automatic line breaks in XML
+If an XML tag has more than three attributes or the line is longer than 50 characters and has at least 2 attributes. Those attributes will be placed on separate lines, automatically indented to match with the tag.
+
+**Example**
+
+Input:
+```
+first-tag ;;first-attribute first value ;;second-attribute second value ;n
+ ;;third-attribute third value ;;fourth-attribute fourth value
+second-tag ;;first-attribute first value ;;second-attribute second value ;;third-attribute third vale
+third-tag ;;very-long-attribute-that-is-long very long value that is long ;;another-attribue another value
+```
+Output:
+
+```xml
+<first-tag first-attribute="first value"
+           second-attribute="second value"
+           third-attribute="third value"
+           fourth-attribute="fourth value">
+</first-tag>
+<second-tag first-attribute="first value"
+            second-attribute="second value"
+            third-attribute="third vale">
+</second-tag>
+<third-tag very-long-attribute-that-is-long="very long value that is long" another-attribue="another value"/>
+```

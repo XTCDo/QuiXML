@@ -5,6 +5,12 @@ import datetime
 
 ATTR_SEPARATOR = ";;"
 
+def getLooseText(str):
+    if str.lstrip().startswith(";t "):
+        return str.split(";t ")[1].strip("\n")
+    else:
+        return ''
+
 def getText(str):
     str = ' '.join(str.split(ATTR_SEPARATOR)[0].split()[1:])
     return str
@@ -30,6 +36,24 @@ def getTags(str):
     
     return '<%s%s>' % (str, attributes), '</%s>' % str
 
+def flattenEmptyTags(tags):
+    print('--------') 
+    i = 0
+    for t in tags:
+        
+        if i + 1 != len(tags):
+            tag = tags[i]
+            nextTag = tags[i+1]
+            
+            if not("\n" in tag or "\n" in nextTag) and \
+               "</" not in tag.split('>')[0] and \
+               "<" in nextTag.split('>')[0] and \
+               tag.split('>')[0].strip()[1:].split(" ")[0] == nextTag.split('>')[0].strip()[2:].split(" ")[0]:
+                tags[i] = tags[i][:-1] + "/>"
+                tags.pop(i+1)
+            i = i + 1
+    return tags
+
 def createXML(filename):
     out = []
     with open(filename) as f:
@@ -37,20 +61,25 @@ def createXML(filename):
         cnt = 0
         while line:
             currentSpaceCount = len(line) - len(line.lstrip(' '))
-            openingTag, closingTag = getTags(line)
-            
-            out.insert(cnt*2 - currentSpaceCount, ' '*currentSpaceCount + closingTag)
-            if len(getText(line)) != 0:
-                out.insert(cnt*2 - currentSpaceCount, ' '*currentSpaceCount + openingTag + "\n" + ' '*(currentSpaceCount + 1) + getText(line))
+
+            if getLooseText(line) != '':
+                out.insert(cnt - currentSpaceCount, ' '*currentSpaceCount + getLooseText(line))
+                cnt = cnt + 1
             else:
-                out.insert(cnt*2 - currentSpaceCount, ' '*currentSpaceCount + openingTag)
+                openingTag, closingTag = getTags(line)
+                out.insert(cnt - currentSpaceCount, ' '*currentSpaceCount + closingTag)
+                if len(getText(line)) != 0:
+                    out.insert(cnt - currentSpaceCount, ' '*currentSpaceCount + openingTag + "\n" + ' '*(currentSpaceCount + 1) + getText(line))
+                else:
+                    out.insert(cnt - currentSpaceCount, ' '*currentSpaceCount + openingTag)
+                cnt = cnt + 2
             
-            cnt = cnt + 1
             line = f.readline()
             while line.isspace():
                 line = f.readline()
 
-
+        
+        out = flattenEmptyTags(out)
         outputString = '\n'.join(out)
         
         f = open("%s.xml" % filename.split('.')[0], "w+")

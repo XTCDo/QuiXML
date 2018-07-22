@@ -38,7 +38,6 @@ def getTags(str):
 
 
 def flattenEmptyTags(tags):
-    print('--------') 
     i = 0
     for t in tags:
         
@@ -109,6 +108,7 @@ def getTxtFiles():
 def convertFiles(txtFiles):
     for file in txtFiles:
         createXML(file)
+        printConversionLog(file)
 
 def getHashes(txtFiles):
     hashes = {}

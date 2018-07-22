@@ -1,4 +1,4 @@
-# quixml
+# QuiXML
 Easy xml formatting
 
 ## How to use

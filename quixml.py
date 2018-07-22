@@ -19,6 +19,7 @@ def getText(str):
 
 def getAttributes(str):
     if ATTR_SEPARATOR not in str:
+        print('fuck you')
         return ''
     attributes = str.split(ATTR_SEPARATOR)[1:]
     attributesOut = []
@@ -26,6 +27,7 @@ def getAttributes(str):
     tagNameLength = len(str.lstrip().split(' ')[0])
     leadingSpacesCount = (len(str) - len(str.lstrip(' '))) + tagNameLength + 1
     index = 0
+    brk = ''
     for attr in attributes:
         brk = ''
         attr = attr.split()
@@ -35,9 +37,9 @@ def getAttributes(str):
             if index != 0:
                 leadingSpaces = ' '*leadingSpacesCount
             if index != len(attributes) - 1:
+                print("break")
                 brk = "\n"
         attributesOut.append('%s%s="%s"%s' % (leadingSpaces, attrName, attrVal, brk))
-
         index = index + 1
             
     return ' '.join(attributesOut)
@@ -55,7 +57,6 @@ def getTags(str):
 def flattenEmptyTags(tags):
     i = 0
     for t in tags:
-        
         if i + 1 != len(tags):
             tag = tags[i]
             nextTag = tags[i+1]
@@ -67,6 +68,7 @@ def flattenEmptyTags(tags):
                 tags[i] = tags[i][:-1] + "/>"
                 tags.pop(i+1)
             i = i + 1
+    print(tags)
     return tags
 
 def createXML(filename):
@@ -79,7 +81,6 @@ def createXML(filename):
             line = line.strip('\n')
             while line.endswith(BREAK_TOKEN):
                 line = line[:-2] + f.readline().strip('\n')
-                
 
             if getLooseText(line) != '':
                 out.insert(cnt - currentSpaceCount, ' '*currentSpaceCount + getLooseText(line))
@@ -100,7 +101,7 @@ def createXML(filename):
         
         out = flattenEmptyTags(out)
         outputString = '\n'.join(out)
-        
+
         f = open("%s.xml" % filename.split('.')[0], "w+")
         f.write(outputString)
         f.close()

@@ -98,29 +98,3 @@ Output:
  more text
 </first-tag>
 ```
-
-
-## Hopefully upcoming features
-### Empty tags
-Sometimes you have tags that don't need any content inside them, for example `<br/>`.
-
-**Example**
-
-Input:
-```
-first-tag
- empty-tag
- non-empty-tag content
-```
-Output:
-
-```xml
-<first-tag>
- <empty-tag/>
- <non-empty-tag>
-  content
- </non-empty-tag>
-</first-tag>
-```
-
-
